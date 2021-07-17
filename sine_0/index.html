@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sine.1</title>
+    <style>
+      * {
+        margin: 0;
+      }
+
+      body {
+        overflow-y: hidden;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script>
+      function setup() {
+        colorMode(HSB);
+        frameRate(30);
+        createCanvas(window.innerWidth, window.innerHeight);
+      }
+
+      function draw() {
+        if (frameCount % 30 == 0) {
+          background((frameCount / 4) % 360, 20, 100);
+        }
+        const x = width / 2;
+        const y =
+          sineWave(height / 2, height / 2 - 50, frameCount, 5) + height / 2;
+        drawEyes({ x, y });
+      }
+
+      const sineWave = (number, amplitude, time, speed) => {
+        return Math.sin(time * (speed * 0.01)) * amplitude;
+      };
+
+      const drawEyes = ({ x, y }) => {
+        drawEye({ x: x + 225, y });
+        drawEye({ x: x + 75, y });
+        drawEye({ x: x - 75, y });
+        drawEye({ x: x - 225, y });
+      };
+
+      const drawEye = ({ x, y }) => {
+        fill(255);
+        ellipse(x, y, 100, 100);
+        ellipse(x, y, 80, 80);
+        ellipse(x, y, 60, 60);
+        ellipse(x, y, 40, 40);
+        fill(0);
+        ellipse(x, y, 20, 20);
+        fill(255);
+      };
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>

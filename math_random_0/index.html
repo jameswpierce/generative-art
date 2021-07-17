@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>math.random.0</title>
+    <style>
+      * {
+        margin: 0;
+      }
+
+      body {
+        overflow-y: hidden;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script>
+      let iteration = 0;
+
+      function setup() {
+        colorMode(HSB);
+        frameRate(32);
+        createCanvas(window.innerWidth, window.innerHeight);
+        background(225, 100, 100);
+      }
+
+      function draw() {
+        plotSquare(iteration, 32, 0.5);
+        iteration += 1;
+      }
+
+      function reset() {
+        background(225, 100, 100);
+        iteration = -1;
+      }
+
+      const plotSquare = (iteration, perLine, frequency) => {
+        const x = (iteration % perLine) * (width / perLine);
+        const y = Math.floor(iteration / perLine) * (width / perLine);
+        if (y > height) { reset() }
+
+        if (Math.random() < frequency) {
+          stroke(225, 16, 100);
+          fill(225, 16, 100);
+        } else {
+          stroke(240, 100, 100);
+          fill(240, 100, 100);
+        }
+        square(x, y, width / perLine);
+      }
+
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>
