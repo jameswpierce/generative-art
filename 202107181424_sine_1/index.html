@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>untitled.0</title>
+    <style>
+      * {
+        margin: 0;
+      }
+
+      body {
+        overflow-y: hidden;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script>
+      function setup() {
+        colorMode(HSB);
+        frameRate(8);
+        createCanvas(window.innerWidth, window.innerHeight);
+        noStroke();
+        background(225, 100, 100);
+        fill(225, 100, 80);
+        rect(width / 2 - 160, height / 2, 320, height / 2);
+        fill(225, 100, 50);
+        triangle(width/2, height/2 - 180, width/2-90, height/2 - 90, width/2+90,
+                height/2 - 90);
+        triangle(width /2 - 160, height /2, width /2 - 360, height, width/2 - 160, height);
+        triangle(width /2 + 160, height /2, width /2 + 360, height, width/2 +
+                160, height);
+        fill(225, 100, 60);
+        triangle(width /2 - 160, height /2, width /2 - 240, height, width/2 - 160, height);
+        triangle(width /2 + 160, height /2, width /2 + 240, height, width/2 +
+                160, height);
+        fill(225, 100, 70);
+        triangle(width /2 - 160, height /2, width /2 - 200, height, width/2 - 160, height);
+        triangle(width /2 + 160, height /2, width /2 + 200, height, width/2 +
+                160, height);
+      }
+
+      function draw() {
+        fill(0, 0, 100);
+        circle(width / 2, height / 2, 320);
+        fill(225, 100, 80);
+        circle(width / 2, height / 2, 300);
+        fill(0, 0, 100);
+        circle(width / 2, height / 2, 100);
+        fill(225, 100, 100);
+        circle(
+          Math.sin(frameCount / 5) * 40 + width / 2,
+          Math.cos(frameCount / 5) * 40 + height / 2,
+          20
+        );
+        fill(270, 0, 100);
+        circle(
+          Math.cos(frameCount / 12) * 100 + width / 2,
+          Math.sin(frameCount / 12) * 100 + height / 2,
+          100
+        );
+      }
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>
