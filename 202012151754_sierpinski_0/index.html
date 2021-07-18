@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sierpinski</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@_jameswpierce" />
+    <meta name="twitter:site" content="@_jameswpierce" />
+    <meta name="twitter:label1" content="Coded by" />
+    <meta name="twitter:data1" content="James Pierce" />
+    <meta name="twitter:title" content="Sierpiński Triangle" />
+    <meta
+      name="twitter:image"
+      content="https://sierpinski-one.vercel.app/images/twitter-card.png"
+    />
+    <style>
+      :root {
+        --gradient: linear-gradient(
+          149deg,
+          rgba(238, 174, 202, 1) 0%,
+          rgba(148, 187, 233, 1) 100%
+        );
+        --background: rgb(238, 174, 202);
+      }
+
+      body {
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+        background-color: var(--background);
+        background: var(--gradient);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <svg id="sierpinski" height="60vh" width="60vh"></svg>
+    <input
+      autofocus
+      type="range"
+      value="0"
+      name="iterations"
+      min="0"
+      max="10"
+      id="iterations"
+    />
+    <label for="iterations"
+      >Iterations: <span id="iterationsValue">0</span></label
+    >
+    <a href="https://github.com/jameswpierce/sierpinski" style="margin-top:2rem">Github Repository</a>
+    <script>
+      const createSVGElement = (name, attributes = {}) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.keys(attributes).map(attr => {
+          el.setAttribute(attr, attributes[attr]);
+        });
+        return el;
+      };
+
+      const equilateralTriangle = (x, y, sideLength, style = "fill:white;") => {
+        const height = Math.sqrt(sideLength ** 2 - (sideLength / 2) ** 2);
+        const points = `${x + sideLength / 2},${y} ${sideLength + x},${y +
+          height} ${x},${y + height}`;
+        const el = createSVGElement("polygon", {
+          points,
+          style
+        });
+
+        return {
+          height: () => height,
+          sideLength: () => sideLength,
+          width: () => sideLength,
+          points: () => points,
+          position: () => {
+            return { x, y };
+          },
+          el: () => el
+        };
+      };
+
+      const Sierpinski = elementId => {
+        const svg = document.getElementById(elementId);
+        const { width } = svg.getBoundingClientRect();
+        const rootTriangle = equilateralTriangle(0, 0, width);
+
+        const splitTriangle = triangle => {
+          const width = triangle.width() / 2;
+          const height = triangle.height() / 2;
+          const { x, y } = triangle.position();
+          const triangles = [
+            equilateralTriangle(x + width / 2, y, width),
+            equilateralTriangle(x, y + height, width),
+            equilateralTriangle(x + width, y + height, width)
+          ];
+
+          return triangles;
+        };
+
+        const iterate = (triangles, depth) => {
+          if (depth == 0) {
+            return triangles;
+          }
+          const nextTriangles = triangles.flatMap(splitTriangle);
+          return iterate(nextTriangles, depth - 1);
+        };
+
+        const draw = ({ iterations }) => {
+          const els = iterate([rootTriangle], iterations);
+          svg.replaceChildren(...els.map(e => e.el()));
+        };
+
+        return {
+          draw
+        };
+      };
+
+      const UI = () => {
+        const visualization = Sierpinski("sierpinski");
+
+        const els = {
+          iterationsSlider: document.getElementById("iterations"),
+          iterationsValue: document.getElementById("iterationsValue")
+        };
+
+        const methods = {
+          handleIterationsSliderInput: e => {
+            const iterations = e.target.value;
+            els.iterationsValue.innerText = iterations;
+            visualization.draw({ iterations });
+          }
+        };
+
+        els.iterationsSlider.addEventListener(
+          "input",
+          methods.handleIterationsSliderInput
+        );
+        visualization.draw({ iterations: 0 });
+      };
+
+      document.addEventListener("DOMContentLoaded", UI);
+    </script>
+  </body>
+</html>
