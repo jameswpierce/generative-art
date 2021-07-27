@@ -9,3 +9,6 @@ yarn && yarn dev
 
 write script in the head of the `index.html`
 
+add link to `/index.html`
+
+push to `main` to deploy to https://euphoria.institute
