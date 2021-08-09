@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>math.random.1</title>
+    <style>
+      * {
+        margin: 0;
+      }
+
+      body {
+        overflow-y: hidden;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script>
+      function setup() {
+        colorMode(HSB);
+        frameRate(5);
+        createCanvas(window.innerWidth, window.innerHeight);
+        background(0);
+      }
+
+      function draw() {
+        const g = grid.matrix();
+        g.map((row, rowIndex) => {
+          row.map((column, columnIndex) => {
+            fill(0, 0, g[rowIndex][columnIndex] * 255);
+            square(columnIndex * (width/100), rowIndex * (width/100), width/100);
+          });
+        });
+      }
+
+      const matrix = (columns, rows) => {
+        const row = () => [...Array(columns)].map(() => Math.round(Math.random()));
+        return [...Array(rows)].map(() => row());
+      };
+
+      const grid = {
+        matrix: () =>  matrix(100, 100),
+      };
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>
