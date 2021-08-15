@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>synethesia.0</title>
+    <style>
+      * {
+        margin: 0;
+      }
+
+      body {
+        overflow-y: hidden;
+      }
+    </style>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"
+      integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"
+      integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      function setup() {
+        colorMode(HSB);
+        frameRate(30);
+        createCanvas(window.innerWidth, window.innerHeight);
+        background(255);
+        text("seizure warning: flashing colors", width / 2, height / 2);
+      }
+
+      function draw() {
+        textAlign(CENTER);
+      }
+
+      function keyPressed() {
+        const synth = new p5.MonoSynth();
+        if (getAudioContext().state !== "running") {
+          getAudioContext().resume();
+        }
+        switch (key) {
+          case "a":
+            background(0, 255, 128);
+            synth.play("A4", 0.5, 0, 0.2);
+            break;
+          case "w":
+            background(355, 255, 128);
+            synth.play("Bb4", 0.5, 0, 0.2);
+            break;
+          case "s":
+            background(350, 255, 128);
+            synth.play("B4", 0.5, 0, 0.2);
+            break;
+          case "d":
+            background(340, 255, 128);
+            synth.play("C4", 0.5, 0, 0.2);
+            break;
+          case "r":
+            background(335, 255, 128);
+            synth.play("Db4", 0.5, 0, 0.2);
+            break;
+          case "f":
+            background(330, 255, 128);
+            synth.play("D4", 0.5, 0, 0.2);
+            break;
+          case "t":
+            background(325, 255, 128);
+            synth.play("Eb4", 0.5, 0, 0.2);
+            break;
+          case "g":
+            background(320, 255, 128);
+            synth.play("E4", 0.5, 0, 0.2);
+            break;
+          case "h":
+            background(310, 255, 128);
+            synth.play("F4", 0.5, 0, 0.2);
+            break;
+          case "u":
+            background(305, 255, 128);
+            synth.play("Gb4", 0.5, 0, 0.2);
+            break;
+          case "j":
+            background(300, 255, 128);
+            synth.play("G4", 0.5, 0, 0.2);
+            break;
+          case "i":
+            background(290, 255, 128);
+            synth.play("Ab5", 0.5, 0, 0.2);
+            break;
+          case "k":
+            background(290, 255, 128);
+            synth.play("A5", 0.5, 0, 0.2);
+            break;
+          case "o":
+            background(285, 255, 128);
+            synth.play("Bb5", 0.5, 0, 0.2);
+            break;
+          case "l":
+            background(280, 255, 128);
+            synth.play("B5", 0.5, 0, 0.2);
+            break;
+          case ";":
+            background(270, 255, 128);
+            synth.play("C5", 0.5, 0, 0.2);
+            break;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main></main>
+    <aside
+      style="
+        font-family: monospace;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 3rem;
+        background-color: #0000ff;
+        color: #ffffff;
+      "
+    >
+      <div>
+        &nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;R&nbsp;T&nbsp;&nbsp;&nbsp;U&nbsp;I&nbsp;O
+      </div>
+      <div>
+        A&nbsp;S&nbsp;D&nbsp;F&nbsp;G&nbsp;H&nbsp;J&nbsp;K&nbsp;L&nbsp;;
+      </div>
+    </aside>
+  </body>
+</html>
