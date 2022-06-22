@@ -24,24 +24,28 @@ function shadowOffset() {
 
 function setup() {
   colorMode(HSB);
-  frameRate(30);
+  frameRate(15);
   createCanvas(width, height);
-  background(0);
+  background(255);
   noStroke();
 }
 
 function draw() {
   clear();
-  background(0);
+  background(255);
   const { xOffset, yOffset } = shadowOffset();
   matrix.map((row, rI) => {
     row.map((col, cI) => {
-      const x = rI * (width / matrix.length) + (width / matrix.length / 4);
-      const y = cI * (height / matrix.length) + (height / matrix.length / 4);
-      fill(255);
-      square(x + xOffset, y + yOffset, 32);
-      lSquare(x, y, 32 + (abs(rI - matrix.length / 2) + abs(cI - matrix.length / 2))).draw();
+      const x = rI * (width / matrix.length) + (width / matrix.length);
+      const y = cI * (height / matrix.length) + (height / matrix.length);
+      fill(0);
+      const size = (width / matrix.length * 0.8) - (abs((matrix.length - rI) * ((frameCount % 150))) + abs((matrix.length - cI) * ((frameCount % 150))));
+      square(x + xOffset, y + yOffset, size);
+      lSquare(x, y, size).draw();
     });
   });
 }
 
+function windowResized() {
+  resizeCanvas(width, height);
+}
