@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>matrix.1</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <style>
+      * {
+        margin: 0;
+      }
+
+      body {
+        overflow-y: hidden;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script>
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+
+      let frameWidth = width / 2;
+
+      function generateStacks(length) {
+        return Array(length)
+          .fill()
+          .map((a) =>
+            Array.from({ length }, () =>
+              Array.from({ length }, () => Math.round(Math.random() * 3))
+            )
+          );
+      }
+
+      let stacks = generateStacks(10);
+
+      function setup() {
+        createCanvas(width, height, WEBGL);
+        ortho(-width / 2, width / 2, height / 2, -height / 2, 0, 1024);
+        resizeCanvas(width, height);
+      }
+
+      function draw() {
+        clear();
+        rotateX(1);
+        rotateZ(frameCount * 0.01);
+        if (frameCount % 20 == 0) {
+          stacks = generateStacks(16);
+        }
+        translate(
+          (stacks.length / 2) * 32,
+          (stacks.length / 2) * 32,
+          -((stacks.length / 2) * 30)
+        );
+        stacks.map((row) => {
+          translate(0, -32 * row.length, 32);
+          row.map((column) => {
+            translate(-32 * column.length, 32, 0);
+            column.map((block, index) => {
+              if (block == 1) {
+                fill(255, 255, 255, 0);
+                stroke(255, 0, 255);
+              } else if (block == 2) {
+                fill(255, 0, 255, 128);
+                stroke(255, 255, 0);
+              } else if (block == 3) {
+                fill(255, 255, 0, 64);
+                stroke(255, 0, 0);
+              } else {
+                fill(0, 255, 255);
+                stroke(0, 0, 255);
+              }
+              translate(32, 0, 0);
+              box(30);
+            });
+          });
+        });
+      }
+
+      function windowResized() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        resizeCanvas(width, height);
+      }
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>
